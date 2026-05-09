@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-// ─── Medicine Database ────────────────────────────────────────────────────────
+//COMMON MEDICINES USERS CAN CHOOSE FROM
 const MEDICINE_DATABASE = [
   { id: 1, name: "Aspirin", commonDoses: ["81mg", "325mg", "500mg"], category: "Pain Relief" },
   { id: 2, name: "Atorvastatin", commonDoses: ["10mg", "20mg", "40mg", "80mg"], category: "Cholesterol" },
@@ -29,7 +29,6 @@ const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 const DAY_SHORT = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const CATEGORIES = ["All", ...new Set(MEDICINE_DATABASE.map((m) => m.category))];
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 const uid = () => Math.random().toString(36).slice(2, 9);
 
 const defaultEntry = () => ({
@@ -45,8 +44,6 @@ const defaultEntry = () => ({
   withFood: false,
   color: "#3b82f6",
 });
-
-// ─── Subcomponents ────────────────────────────────────────────────────────────
 
 function MedicineSearch({ value, onChange }) {
   const [query, setQuery] = useState("");
@@ -66,14 +63,16 @@ function MedicineSearch({ value, onChange }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        style={{
+        style={{ 
           width: "100%",
           padding: "10px 14px",
-          background: "#0f172a",
+          background: "#0f172a" ,
+          // background: "#0D241A" ,
           border: "1.5px solid #334155",
           borderRadius: 8,
           color: selected ? "#e2e8f0" : "#64748b",
           textAlign: "left",
+          // textAlign: "center",
           cursor: "pointer",
           display: "flex",
           justifyContent: "space-between",
@@ -94,13 +93,13 @@ function MedicineSearch({ value, onChange }) {
             left: 0,
             right: 0,
             background: "#0f172a",
+            // background: "#0D241A" ,
             border: "1.5px solid #334155",
             borderRadius: 10,
             boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
             overflow: "hidden",
           }}
         >
-          {/* Search input */}
           <div style={{ padding: "10px 12px", borderBottom: "1px solid #1e293b" }}>
             <input
               autoFocus
@@ -120,8 +119,6 @@ function MedicineSearch({ value, onChange }) {
               }}
             />
           </div>
-
-          {/* Category filter */}
           <div
             style={{
               display: "flex",
@@ -151,8 +148,6 @@ function MedicineSearch({ value, onChange }) {
               </button>
             ))}
           </div>
-
-          {/* Results list */}
           <div style={{ maxHeight: 220, overflowY: "auto" }}>
             {filtered.length === 0 ? (
               <div style={{ padding: "16px", color: "#64748b", fontSize: 13, textAlign: "center" }}>
@@ -291,6 +286,7 @@ function TimeEntryList({ times, onChange }) {
               style={{
                 padding: "8px 12px",
                 background: "#0f172a",
+                // background: "#0D241A" ,
                 border: "1.5px solid #334155",
                 borderRadius: 8,
                 color: "#e2e8f0",
@@ -355,6 +351,7 @@ function EntryCard({ entry, index, onChange, onRemove }) {
     <div
       style={{
         background: "#0f172a",
+        // background: "#0D241A" ,
         border: "1.5px solid #1e293b",
         borderRadius: 14,
         padding: "20px 22px",
@@ -362,7 +359,6 @@ function EntryCard({ entry, index, onChange, onRemove }) {
         borderLeft: `4px solid ${entry.color}`,
       }}
     >
-      {/* Header */}
       <div
         style={{
           display: "flex",
@@ -421,13 +417,10 @@ function EntryCard({ entry, index, onChange, onRemove }) {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-        {/* Medicine selector */}
         <div style={{ gridColumn: "1 / -1" }}>
           <Label>Medicine Name</Label>
           <MedicineSearch value={entry.medicineId} onChange={(id) => set("medicineId", id)} />
         </div>
-
-        {/* Custom name if "Other" */}
         {isCustom && (
           <div style={{ gridColumn: "1 / -1" }}>
             <Label>Custom Medicine Name</Label>
@@ -438,8 +431,6 @@ function EntryCard({ entry, index, onChange, onRemove }) {
             />
           </div>
         )}
-
-        {/* Dose */}
         <div>
           <Label>Dosage</Label>
           {med && med.commonDoses.length > 0 ? (
@@ -472,8 +463,6 @@ function EntryCard({ entry, index, onChange, onRemove }) {
             />
           )}
         </div>
-
-        {/* Pill count */}
         <div>
           <Label>Pills per dose</Label>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -504,20 +493,14 @@ function EntryCard({ entry, index, onChange, onRemove }) {
             </button>
           </div>
         </div>
-
-        {/* Days */}
         <div style={{ gridColumn: "1 / -1" }}>
           <Label>Days of the week</Label>
           <DayPicker selected={entry.days} onChange={(days) => set("days", days)} />
         </div>
-
-        {/* Times */}
         <div style={{ gridColumn: "1 / -1" }}>
           <Label>Time(s) of day</Label>
           <TimeEntryList times={entry.schedTimes} onChange={(schedTimes) => set("schedTimes", schedTimes)} />
         </div>
-
-        {/* With food */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <button
             type="button"
@@ -525,7 +508,7 @@ function EntryCard({ entry, index, onChange, onRemove }) {
             style={{
               width: 40,
               height: 22,
-              borderRadius: 11,
+              borderRadius:11,
               border: "none",
               background: entry.withFood ? "#3b82f6" : "#334155",
               cursor: "pointer",
@@ -538,9 +521,9 @@ function EntryCard({ entry, index, onChange, onRemove }) {
                 position: "absolute",
                 top: 3,
                 left: entry.withFood ? 21 : 3,
-                width: 16,
+                width:  16,
                 height: 16,
-                borderRadius: "50%",
+                borderRadius:"50%",
                 background: "#fff",
                 transition: "left 0.2s",
               }}
@@ -549,8 +532,6 @@ function EntryCard({ entry, index, onChange, onRemove }) {
           <span style={{ color: "#94a3b8", fontSize: 13 }}>Take with food</span>
           {entry.withFood && <span>🍽️</span>}
         </div>
-
-        {/* Notes */}
         <div style={{ gridColumn: "1 / -1" }}>
           <Label>Notes (optional)</Label>
           <textarea
@@ -569,12 +550,11 @@ function EntryCard({ entry, index, onChange, onRemove }) {
     </div>
   );
 }
-
-// ─── Style helpers ────────────────────────────────────────────────────────────
 const inputStyle = {
   width: "100%",
   padding: "10px 14px",
   background: "#0f172a",
+  // background: "#0D241A" ,
   border: "1.5px solid #334155",
   borderRadius: 8,
   color: "#e2e8f0",
@@ -588,6 +568,7 @@ const selectStyle = {
   cursor: "pointer",
   appearance: "none",
 };
+
 
 const counterBtn = {
   width: 32,
@@ -620,11 +601,11 @@ function Label({ children }) {
   );
 }
 
+
+
 function Input({ style, ...props }) {
   return <input style={{ ...inputStyle, ...style }} {...props} />;
 }
-
-// ─── Schedule Summary ─────────────────────────────────────────────────────────
 function ScheduleSummary({ entries }) {
   if (entries.length === 0) return null;
 
@@ -653,6 +634,7 @@ function ScheduleSummary({ entries }) {
             key={day}
             style={{
               background: "#0f172a",
+              // background: "#0D241A" ,
               border: "1px solid #1e293b",
               borderRadius: 10,
               padding: "10px 8px",
@@ -704,7 +686,8 @@ function ScheduleSummary({ entries }) {
   );
 }
 
-// ─── Main App ─────────────────────────────────────────────────────────────────
+
+///THIS IS THE MAIN
 export default function PillScheduler() {
   const [entries, setEntries] = useState([defaultEntry()]);
   const [patientName, setPatientName] = useState("GSS TEAM 10");
@@ -751,7 +734,6 @@ export default function PillScheduler() {
       }}
     >
       <div style={{ maxWidth: 860, margin: "0 auto" }}>
-        {/* Header */}
         <div style={{ marginBottom: 32, textAlign: "center" }}>
           <div style={{ fontSize: 36, marginBottom: 8 }}>💊</div>
           <h1 style={{ fontSize: 28, fontWeight: 900, color: "#f1f5f9", margin: 0 }}>
@@ -762,7 +744,6 @@ export default function PillScheduler() {
           </p>
         </div>
 
-        {/* Patient name */}
         <div style={{ marginBottom: 24 }}>
           <Label>Patient / Profile Name</Label>
           <Input
@@ -772,7 +753,6 @@ export default function PillScheduler() {
           />
         </div>
 
-        {/* Entries */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {entries.map((entry, i) => (
             <EntryCard
@@ -785,7 +765,6 @@ export default function PillScheduler() {
           ))}
         </div>
 
-        {/* Add button */}
         <button
           type="button"
           onClick={addEntry}
@@ -806,10 +785,8 @@ export default function PillScheduler() {
           + Add Medication
         </button>
 
-        {/* Schedule summary */}
         <ScheduleSummary entries={entries} />
 
-        {/* Save */}
         <div style={{ marginTop: 28, display: "flex", justifyContent: "flex-end" }}>
           <button
             type="button"
@@ -821,7 +798,7 @@ export default function PillScheduler() {
               background: saved ? "#16a34a" : "#3b82f6",
               color: "#fff",
               fontWeight: 800,
-              fontSize: 15,
+              fontSize:15,
               cursor: "pointer",
               transition: "background 0.3s",
               boxShadow: `0 0 24px ${saved ? "rgba(22,163,74,0.4)" : "rgba(59,130,246,0.4)"}`,
